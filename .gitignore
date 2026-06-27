@@ -1,0 +1,26 @@
+# Kernel build artifacts
+*.ko
+*.mod
+*.mod.c
+*.mod.o
+*.o
+*.a
+*.s
+*.symtypes
+*.order
+*.cmd
+
+# Répertoires générés par le build
+.tmp_versions/
+__pycache__/
+
+# Fichiers générés par kbuild
+Module.symvers
+modules.order
+
+# Fichiers système
+.DS_Store
+*.swp
+*~
+.clangd/
+compile_commands.json
