@@ -161,11 +161,18 @@ clean:
 	@echo
 	@echo "--- cleaning ---"
 	@echo
+	@# Sauvegarde compile_commands.json avant que kbuild le supprime
+	@cp -f compile_commands.json /tmp/compile_commands_$(FNAME_C).json 2>/dev/null || true
 	make -C $(KDIR) M=$(PWD) clean
-# from 'indent'; comment out if you want the backup kept
-	rm -f *~ *.dtb
-	@# Régénère compile_commands.json après le clean
+	@# Restaure compile_commands.json après le clean
+	@cp -f /tmp/compile_commands_$(FNAME_C).json compile_commands.json 2>/dev/null || true
+	rm -f *~
+compile_commands:
+	@echo
+	@echo "--- generating compile_commands.json for clangd ---"
+	@echo
 	bear -- make -C $(KDIR) M=$(PWD) modules
+	@echo "--- compile_commands.json generated ---"
 
 # Any usermode programs to build? Insert the build target(s) below
 
@@ -279,6 +286,7 @@ help:
 	@echo 'dt          : compiles the Device Tree Blob (DTB) from the DTS file (applicable to ARM, PPC, RISC-V, etc)'
 	@echo 'nsdeps      : namespace dependencies resolution; for possibly importing namespaces'
 	@echo 'clean       : cleanup - remove all kernel objects, temp files/dirs, etc'
+	@echo 'compile_commands : generate compile_commands.json for clangd LSP (runs a build via bear)'
 
 	@echo
 	@echo '--- kernel code style targets ---'
