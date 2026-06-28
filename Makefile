@@ -164,6 +164,8 @@ clean:
 	make -C $(KDIR) M=$(PWD) clean
 # from 'indent'; comment out if you want the backup kept
 	rm -f *~ *.dtb
+	@# Régénère compile_commands.json après le clean
+	bear -- make -C $(KDIR) M=$(PWD) modules
 
 # Any usermode programs to build? Insert the build target(s) below
 
