@@ -1,0 +1,13 @@
+CompileFlags:
+  Add:
+    - -xc
+  Remove:
+    - -fconserve-stack
+    - -fno-allow-store-data-races
+    - -mpreferred-stack-boundary=*
+    - -mindirect-branch=*
+    - -mfunction-return=*
+    - -fno-stack-clash-protection
+    - -mrecord-mcount
+    - -fpatchable-function-entry=*
+    - -fno-ipa-sra
